@@ -1,0 +1,33 @@
+{
+  "name": "fastify-console",
+  "version": "1.0.0",
+  "description": "command line tool to debug fastify app and execute app methods directly.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "lint-fix": "eslint --fix ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/manojchrsya/fastify-console.git"
+  },
+  "keywords": [
+    "fastify-console"
+  ],
+  "author": "manojchrsya@gmail.com",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/manojchrsya/fastify-console/issues"
+  },
+  "homepage": "https://github.com/manojchrsya/fastify-console#readme",
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1"
+  }
+}
