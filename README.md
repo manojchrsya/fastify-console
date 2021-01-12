@@ -79,9 +79,14 @@ Note: for more details about config please check [NodeJS Repl](https://nodejs.or
 #### Examples
 `app` handle provide the `fastify` instance which is being used in application.
 1. Provide accessibility to all `plugin` by assigned `decorator`
+for example if we registerd timestamp decorator as below
 ```javascript
-  app.timestamp()
+  module.exports = fp(async (fastify, opts) => {
+    fastify.decorate('timestamp', () => Date.now());
+  });
 ```
+then we can execute it directly from console by using `app.timestamp()`
+
 2. Provide accessibility to `routes` of application
 ```javascript
   app.inject({ url: '/home', methods: 'GET', headers: {access_token: 'my-secret-token'} })
@@ -112,6 +117,7 @@ Note: for more details about config please check [NodeJS Repl](https://nodejs.or
 ```
 Note: `fastify-console` uses `fastify-mongoose-driver` plugin to access `models` in console.
 or you can use `mongoose` decorator for mongo connections.
+please check [`mongoose`](https://mongoosejs.com/docs/guide.html) for better understanding about schema definations.
 
 -------------------------------------------
 #### Inspired By
