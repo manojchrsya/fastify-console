@@ -9,50 +9,40 @@ Command line tool to debug fastify app and execute app methods directly.
 
 #### Setup
 To use the package you have to intergrate with your `server.js` file in your project.
-if you have use `fastify-cli` to create your project, then you might not have `server.js`.
-
-In that case you need to create a new `server.js` file in root directory.
-
 ``` javascript
   const Fastify = require('fastify');
   const fp = require('fastify-plugin');
-
+  const FastifyConsole = require('fastify-console');
   // Instantiate Fastify with some config
   const app = Fastify({ logger: true, pluginTimeout: 3000 });
   const App = require('./app');
 
   // Register your application as a normal plugin.
   app.register(fp(App), {});
-```
 
-if you already have `server.js` file then checkout below code to integrate with your app.
-
-```javascript
-const FastifyConsole = require('fastify-console');
-
-if (FastifyConsole.active()) {
-  app.ready((error) => {
-    if (error) {
-      // eslint-disable-next-line no-console
-      console.error(error);
-      return false;
-    }
-    return FastifyConsole.start(app, {
-      prompt: 'fastify > ',
+  if (FastifyConsole.active()) {
+    app.ready((error) => {
+      if (error) {
+        // eslint-disable-next-line no-console
+        console.error(error);
+        return false;
+      }
+      return FastifyConsole.start(app, {
+        prompt: 'fastify > ',
+      });
     });
-  });
-} else if (require.main === module) {
-  // Start listening.
-  app.listen(process.env.PORT || 3000, '0.0.0.0', (err) => {
-    if (err) {
-      app.log.error(err);
-      process.exit(1);
-    }
-  });
-}
+  } else if (require.main === module) {
+    // Start listening.
+    app.listen(process.env.PORT || 3000, '0.0.0.0', (err) => {
+      if (err) {
+        app.log.error(err);
+        process.exit(1);
+      }
+    });
+  }
 ```
-after creating `server.js`, run below command to start the console
 
+use below command to run console
 ```javascript
 node server.js --console
 ```
@@ -71,9 +61,11 @@ for ease of use you can update your `package.json` as below and then run `npm ru
 | prompt            | String         | fastify >    | The input prompt to display.                |
 | useGlobal         | Boolean        | true         | Default evaluation function will use the JavaScript global        |
 | ignoreUndefined   | Boolean        | true         | Writer will not output the return value of a command if it evaluates to `undefined`                |
-| historyPath       | String         | ''           | The path to a file to persist command history.                |
+| historyPath       | String         | ''           | The path to a file to persist command history. eg: `.data/history.log` |
 
-Note: for more details about config please check [NodeJS Repl](https://nodejs.org/api/repl.html)
+Note:
+  1. History feature will work only for on and above Node 12 version.
+  2. For more details about config please check [NodeJS Repl](https://nodejs.org/api/repl.html)
 
 -------------------------------------------
 #### Examples
